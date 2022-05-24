@@ -25,19 +25,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-#       # Runs a single command using the runners shell
-#       - name: Run a one-line script
-#         run: echo Hello, world!
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: wget -O - https://raw.githubusercontent.com/soluble-ai/soluble-cli/master/linux-install.sh | sh
 
-      - uses: lacework/lw-scanner-action@v0.6.0
-        name: Scan container images for vulnerabitilies using Lacework
-        with:
-          LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
-          LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-          IMAGE_NAME: lhasadreams/electron1
-          IMAGE_TAG: latest
-          SAVE_RESULTS_IN_LACEWORK: true
-#           SAVE_BUILD_REPORT: true
-#           BUILD_REPORT_FILE_NAME: myreport.html
-          FAIL_BUILD: false
-          SEVERITY_THRESHOLD: fixable
+#       - uses: lacework/lw-scanner-action@v0.6.0
+#         name: Scan container images for vulnerabitilies using Lacework
+#         with:
+#           LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
+#           LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
+#           IMAGE_NAME: lhasadreams/electron1
+#           IMAGE_TAG: latest
+#           SAVE_RESULTS_IN_LACEWORK: true
+# #           SAVE_BUILD_REPORT: true
+# #           BUILD_REPORT_FILE_NAME: myreport.html
+#           FAIL_BUILD: false
+#           SEVERITY_THRESHOLD: fixable
