@@ -36,3 +36,8 @@ jobs:
           LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
           IMAGE_NAME: lhasadreams/electron1
           IMAGE_TAG: latest
+          SAVE_RESULTS_IN_LACEWORK: true
+#           SAVE_BUILD_REPORT: true
+#           BUILD_REPORT_FILE_NAME: myreport.html
+#           FAIL_BUILD: true
+          SEVERITY_THRESHOLD: fixable
