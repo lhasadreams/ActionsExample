@@ -26,8 +26,10 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Get Lacework IaC
         run: wget -O - https://raw.githubusercontent.com/soluble-ai/soluble-cli/master/linux-install.sh | sh
+      - name: Run Lacework IaC
+        run: soluble terraform-scan -d .
 
 #       - uses: lacework/lw-scanner-action@v0.6.0
 #         name: Scan container images for vulnerabitilies using Lacework
