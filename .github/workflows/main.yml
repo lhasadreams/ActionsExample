@@ -28,6 +28,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Get Lacework IaC
         run: wget -O - https://raw.githubusercontent.com/soluble-ai/soluble-cli/master/linux-install.sh | sh
+      - name: Set Access Token
+        run: soluble auth set-access-token --access-token ${{ secrets.LW_IAC_ACCESS_TOKEN }}
       - name: Run Lacework IaC
         run: soluble terraform-scan -d . --upload=false
 
