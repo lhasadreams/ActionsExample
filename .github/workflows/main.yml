@@ -23,7 +23,7 @@ jobs:
       - name: Set Access Token
         run: soluble auth set-access-token --access-token ${{ secrets.LW_IAC_ACCESS_TOKEN }}
       - name: Run Lacework IaC
-        run: soluble terraform-scan -d . --upload=false
+        run: soluble terraform-scan -d .
   
   lacework_vuln_scan:
       runs-on: ubuntu-latest
@@ -33,13 +33,13 @@ jobs:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - uses: actions/checkout@v3
         - name: Build the Docker image
-          run: docker build . --file Dockerfile --tag lhasadreams/electron:${{github.run_number}}
+          run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
         - uses: lacework/lw-scanner-action@v0.6.0
           name: Scan container images for vulnerabitilies using Lacework
           with:
             LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
             LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-            IMAGE_NAME: lhasadreams/electron
+            IMAGE_NAME: electron
             IMAGE_TAG: ${{github.run_number}}
             SAVE_RESULTS_IN_LACEWORK: true
   #           SAVE_BUILD_REPORT: true
