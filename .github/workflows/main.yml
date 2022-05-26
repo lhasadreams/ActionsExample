@@ -23,7 +23,7 @@ jobs:
       - name: Set Access Token
         run: soluble auth set-access-token --access-token ${{ secrets.LW_IAC_ACCESS_TOKEN }}
       - name: Run Lacework IaC
-        run: soluble terraform-scan --fail critical
+        run: soluble terraform-scan --fail critical=5
   
   lacework_vuln_scan:
       runs-on: ubuntu-latest
