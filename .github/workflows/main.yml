@@ -52,3 +52,6 @@ jobs:
 #           BUILD_REPORT_FILE_NAME: myreport.html
 #           FAIL_BUILD: true
           SEVERITY_THRESHOLD: fixable
+          
+#       - name: Publish Docker image
+#         run: make docker-push
