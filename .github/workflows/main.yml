@@ -23,7 +23,7 @@ jobs:
         shell: bash
 
     steps:
-      - name: Checkout
+#       - name: Checkout
       - uses: actions/checkout@v2
 #       - name: Log in to the Container registry
 #         uses: docker/login-action@
