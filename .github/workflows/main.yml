@@ -49,5 +49,5 @@ jobs:
 # #           FAIL_BUILD: true
 #           SEVERITY_THRESHOLD: fixable
           
-      - name: Publish Docker image
+#       - name: Publish Docker image
 #         run: make docker-push
