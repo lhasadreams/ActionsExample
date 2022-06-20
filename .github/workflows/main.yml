@@ -36,18 +36,18 @@ jobs:
 #         run: make docker-build
         run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
         
-#       - uses: lacework/lw-scanner-action@v0.6.0
-#         name: Scan container images for vulnerabitilies using Lacework
-#         with:
-#           LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
-#           LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-#           IMAGE_NAME: compose-operator
-#           IMAGE_TAG: ${{github.run_number}}
-#           SAVE_RESULTS_IN_LACEWORK: true
-# #           SAVE_BUILD_REPORT: true
-# #           BUILD_REPORT_FILE_NAME: myreport.html
-# #           FAIL_BUILD: true
-#           SEVERITY_THRESHOLD: fixable
+      - uses: lacework/lw-scanner-action@v0.6.0
+        name: Scan container images for vulnerabitilies using Lacework
+        with:
+          LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
+          LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
+          IMAGE_NAME: compose-operator
+          IMAGE_TAG: ${{github.run_number}}
+          SAVE_RESULTS_IN_LACEWORK: true
+#           SAVE_BUILD_REPORT: true
+#           BUILD_REPORT_FILE_NAME: myreport.html
+#           FAIL_BUILD: true
+          SEVERITY_THRESHOLD: fixable
           
 #       - name: Publish Docker image
 #         run: make docker-push
