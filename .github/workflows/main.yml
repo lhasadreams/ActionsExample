@@ -1,48 +1,53 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Lacework_CI
+name: Build and push Docker image
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches:
+      - master
+      - test-lacework
+    paths:
+      - Makefile
+      - Dockerfile
+      - .dockerignore
+      - "**.go"
+      - "go.mod"
+      - .github/workflows/build-container.yaml
 
 jobs:
-  lacework_iac_check_job:
+  build-publish:
     runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
+#       - name: Log in to the Container registry
+#         uses: docker/login-action@
+#         with:
+#           registry: ghcr.io
+#           username: ${{ github.actor }}
+#           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get Lacework IaC
-        run: wget -O - https://raw.githubusercontent.com/soluble-ai/soluble-cli/master/linux-install.sh | sh
-      - name: Set Access Token
-        run: soluble auth set-access-token --access-token ${{ secrets.LW_IAC_ACCESS_TOKEN }}
-      - name: Run Lacework IaC
-        run: soluble terraform-scan --fail critical=5
-  
-  lacework_vuln_scan:
-      runs-on: ubuntu-latest
-
-      # Steps represent a sequence of tasks that will be executed as part of the job
-      steps:
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        - uses: actions/checkout@v3
-        - name: Build the Docker image
-          run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
-        - uses: lacework/lw-scanner-action@v0.6.0
-          name: Scan container images for vulnerabitilies using Lacework
-          with:
-            LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
-            LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-            IMAGE_NAME: electron
-            IMAGE_TAG: ${{github.run_number}}
-            SAVE_RESULTS_IN_LACEWORK: true
-  #           SAVE_BUILD_REPORT: true
-  #           BUILD_REPORT_FILE_NAME: myreport.html
-  #           FAIL_BUILD: true
-            SEVERITY_THRESHOLD: fixable
+      - name: Build Docker image
+#         run: make docker-build
+        run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
+        
+      - uses: lacework/lw-scanner-action@v0.6.0
+        name: Scan container images for vulnerabitilies using Lacework
+        with:
+          LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
+          LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
+          IMAGE_NAME: compose-operator
+          IMAGE_TAG: ${{github.run_number}}
+          SAVE_RESULTS_IN_LACEWORK: true
+#           SAVE_BUILD_REPORT: true
+#           BUILD_REPORT_FILE_NAME: myreport.html
+#           FAIL_BUILD: true
+          SEVERITY_THRESHOLD: fixable
+          
+      - name: Publish Docker image
+#         run: make docker-push
