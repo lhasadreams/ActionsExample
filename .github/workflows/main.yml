@@ -40,8 +40,8 @@ jobs:
           uses: actions/checkout@v2
         - name: Build the Docker image
           run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
-        - uses: lacework/lw-scanner-action@v0.6.0
-          name: Scan container images for vulnerabitilies using Lacework
+        - name: Scan container images for vulnerabitilies using Lacework
+          uses: lacework/lw-scanner-action@v0.6.0
           with:
             LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
             LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
