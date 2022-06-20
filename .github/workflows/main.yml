@@ -36,7 +36,8 @@ jobs:
       # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        - uses: actions/checkout@v2
+        - name: Checkout
+          uses: actions/checkout@v2
         - name: Build the Docker image
           run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
         - uses: lacework/lw-scanner-action@v0.6.0
