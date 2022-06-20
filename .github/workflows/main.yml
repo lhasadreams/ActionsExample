@@ -13,7 +13,7 @@ on:
       - .dockerignore
       - "**.go"
       - "go.mod"
-      - .github/workflows/main.yaml
+      - .github/workflows/main.yml
 
 jobs:
   build-publish:
