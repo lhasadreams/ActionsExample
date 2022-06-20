@@ -12,18 +12,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  lacework_iac_check_job:
-    runs-on: ubuntu-latest
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+#   lacework_iac_check_job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v3
 
-      - name: Get Lacework IaC
-        run: wget -O - https://raw.githubusercontent.com/soluble-ai/soluble-cli/master/linux-install.sh | sh
-      - name: Set Access Token
-        run: soluble auth set-access-token --access-token ${{ secrets.LW_IAC_ACCESS_TOKEN }}
-      - name: Run Lacework IaC
-        run: soluble terraform-scan --fail critical=5
+#       - name: Get Lacework IaC
+#         run: wget -O - https://raw.githubusercontent.com/soluble-ai/soluble-cli/master/linux-install.sh | sh
+#       - name: Set Access Token
+#         run: soluble auth set-access-token --access-token ${{ secrets.LW_IAC_ACCESS_TOKEN }}
+#       - name: Run Lacework IaC
+#         run: soluble terraform-scan --fail critical=5
   
   lacework_vuln_scan:
       runs-on: ubuntu-latest
@@ -31,7 +31,7 @@ jobs:
       # Steps represent a sequence of tasks that will be executed as part of the job
       steps:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        - uses: actions/checkout@v3
+        - uses: actions/checkout@v2
         - name: Build the Docker image
           run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
         - uses: lacework/lw-scanner-action@v0.6.0
