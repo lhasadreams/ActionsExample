@@ -32,8 +32,8 @@ jobs:
 #           username: ${{ github.actor }}
 #           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image
-        run: make docker-build
+#       - name: Build Docker image
+#         run: make docker-build
         
       - name: Scan container images for vulnerabitilies using Lacework
         uses: lacework/lw-scanner-action@v0.6.0
@@ -48,5 +48,5 @@ jobs:
 #           FAIL_BUILD: true
           SEVERITY_THRESHOLD: fixable
           
-      - name: Publish Docker image
-        run: make docker-push
+#       - name: Publish Docker image
+#         run: make docker-push
