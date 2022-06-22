@@ -1,17 +1,19 @@
-name: Build and push Docker image
+# This is a basic workflow to help you get started with Actions
+
+name: Lacework_CI
 
 on:
   push:
     branches:
-      - main
-      - test-lacework
+     - main
+     - test-lacework
     paths:
       - Makefile
       - Dockerfile
       - .dockerignore
       - "**.go"
       - "go.mod"
-      - .github/workflows/main.yaml
+      - .github/workflows/main.yml
 
 jobs:
   build-publish:
@@ -22,25 +24,28 @@ jobs:
       run:
         shell: bash
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 #       - name: Log in to the Container registry
-#         uses: docker/login-action
+#         uses: docker/login-action@
 #         with:
 #           registry: ghcr.io
 #           username: ${{ github.actor }}
 #           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag electron:${{github.run_number}}
 #       - name: Build Docker image
-#         run: make docker-build
+#         run: make docker-build       
         
       - name: Scan container images for vulnerabitilies using Lacework
         uses: lacework/lw-scanner-action@v0.6.0
         with:
           LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
           LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-          IMAGE_NAME: ghcr.io/huma-engineering/compose-operator
+          IMAGE_NAME: electron
           IMAGE_TAG: ${{github.run_number}}
           SAVE_RESULTS_IN_LACEWORK: true
 #           SAVE_BUILD_REPORT: true
