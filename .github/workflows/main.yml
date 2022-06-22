@@ -46,7 +46,7 @@ jobs:
           LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
           LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
           IMAGE_NAME: busybox
-          IMAGE_TAG: ${{github.run_number}}
+          IMAGE_TAG: latest
           SAVE_RESULTS_IN_LACEWORK: true
 #           SAVE_BUILD_REPORT: true
 #           BUILD_REPORT_FILE_NAME: myreport.html
