@@ -18,7 +18,7 @@ on:
 env:
   DockerRegistry: ghcr.io
   ORG: lhasadreams
-  Repository: $ORG/$DockerRegistry/electron
+  RepoName: electron
 
 jobs:
   build-publish:
@@ -31,6 +31,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: "Set environmental variables"
+        run: |
+          echo "Repository=$DockerRegistry/$ORG/$RepoName" >> $GITHUB_ENV    
       - name: Checkout
         uses: actions/checkout@v3
 #       - name: Log in to the Container registry
