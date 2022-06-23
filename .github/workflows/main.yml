@@ -36,12 +36,16 @@ jobs:
           echo "Repository=$DockerRegistry/$ORG/$RepoName" >> $GITHUB_ENV    
       - name: Checkout
         uses: actions/checkout@v3
-#       - name: Log in to the Container registry
-#         uses: docker/login-action@6
-#         with:
-#           registry: $DockerRegistry
-#           username: ${{ github.actor }}
-#           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Echo Variables
+        run: |
+          echo ${{ github.actor }}
+          echo ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@6
+        with:
+          registry: $DockerRegistry
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag $Repository:${{github.run_number}}      
