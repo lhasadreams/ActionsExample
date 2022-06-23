@@ -16,7 +16,9 @@ on:
       - .github/workflows/main.yml
       
 env:
+  DockerRegistry: ghcr.io
   ORG: lhasadreams
+  Repository: $ORG/$DockerRegistry/electron
 
 jobs:
   build-publish:
@@ -34,19 +36,19 @@ jobs:
 #       - name: Log in to the Container registry
 #         uses: docker/login-action@6
 #         with:
-#           registry: ghcr.io
+#           registry: $DockerRegistry
 #           username: ${{ github.actor }}
 #           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag $ORG/electron:${{github.run_number}}      
+        run: docker build . --file Dockerfile --tag $Repository:${{github.run_number}}      
         
 #       - name: Scan container images for vulnerabitilies using Lacework
 #         uses: lacework/lw-scanner-action@v0.6.0
 #         with:
 #           LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
 #           LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-#           IMAGE_NAME: electron
+#           IMAGE_NAME: $Repository
 #           IMAGE_TAG: ${{github.run_number}}
 #           SAVE_RESULTS_IN_LACEWORK: true
 # #           SAVE_BUILD_REPORT: true
@@ -55,4 +57,4 @@ jobs:
 #           SEVERITY_THRESHOLD: fixable
           
       - name: Publish Docker image
-        run: docker push $ORG/electron:${{github.run_number}}
+        run: docker push $Repository:${{github.run_number}}
