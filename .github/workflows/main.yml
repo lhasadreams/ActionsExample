@@ -51,7 +51,7 @@ jobs:
         with:
           LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
           LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-          IMAGE_NAME: $Repository
+          IMAGE_NAME: $RepoName
           IMAGE_TAG: ${{github.run_number}}
           SAVE_RESULTS_IN_LACEWORK: true
 #           SAVE_BUILD_REPORT: true
