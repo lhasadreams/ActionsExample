@@ -60,6 +60,6 @@ jobs:
 #           SEVERITY_THRESHOLD: fixable
           
       - name: Tag the Docker image
-        run: docker tag $RepoName/${{github.run_number}} $Repository:${{github.run_number}}
+        run: docker tag $RepoName:${{github.run_number}} $Repository:${{github.run_number}}
       - name: Publish Docker image
         run: docker push $Repository:${{github.run_number}}
