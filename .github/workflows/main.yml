@@ -39,7 +39,7 @@ jobs:
 #           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ORG}}/electron:${{github.run_number}}      
+        run: docker build . --file Dockerfile --tag $ORG/electron:${{github.run_number}}      
         
 #       - name: Scan container images for vulnerabitilies using Lacework
 #         uses: lacework/lw-scanner-action@v0.6.0
@@ -55,4 +55,4 @@ jobs:
 #           SEVERITY_THRESHOLD: fixable
           
       - name: Publish Docker image
-        run: docker push ${{ORG}}/electron:${{github.run_number}}
+        run: docker push $ORG/electron:${{github.run_number}}
