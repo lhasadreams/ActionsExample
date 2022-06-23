@@ -41,7 +41,7 @@ jobs:
           echo ${{ github.actor }}
           echo ${{ secrets.GITHUB_TOKEN }}
       - name: Log in to the Container registry
-        uses: docker/login-action@1
+        uses: docker/login-action@v1
         with:
           registry: $DockerRegistry
           username: ${{ github.actor }}
