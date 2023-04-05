@@ -21,7 +21,7 @@ jobs:
       - name: Scan the repo for vulnerabilities in IaC
         run: |
           # Required to pass the GITHUB and Lacework (LW) environment variables to use
-          env | grep "GITHUB_\|LW_\CI_" > env.list
+          env | grep "GITHUB_\|LW_\|CI_" > env.list
           cat env.list
           # Required command based on what you want to scan in the repository
           #echo "SCAN_COMMAND=tf-scan" >> env.list
