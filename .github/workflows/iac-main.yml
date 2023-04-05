@@ -24,13 +24,13 @@ jobs:
           env | grep "GITHUB_\|LW_\|CI_" > env.list
           cat env.list
           # Required command based on what you want to scan in the repository
-          #echo "SCAN_COMMAND=tf-scan" >> env.list
+          echo "SCAN_COMMAND=tf-scan" >> env.list
           # Required if you are not mounting the volume on /app
-          #echo "WORKSPACE=src" >> env.list
+          echo "WORKSPACE=src" >> env.list
           # if we want to fail the step for any critical failed findings (violations) in the assessment scan
-          #echo "EXIT_FLAG='critical'" >> env.list 
-          #docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec-iac:latest
-    env:
+          echo "EXIT_FLAG='critical'" >> env.list 
+          docker run --env-file env.list -v "$(pwd):/app/src" lacework/codesec-iac:latest
+        env:
           LW_ACCOUNT: ${{ secrets.LW_ACCOUNT }}
           LW_API_KEY: ${{ secrets.LW_API_KEY }}
           LW_API_SECRET: ${{ secrets.LW_API_SECRET }}
